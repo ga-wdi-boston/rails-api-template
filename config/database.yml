@@ -1,4 +1,4 @@
-<% project_name = 'rails-api-template' %>
+<% project_name = 'Story Teller' %>
 
 default: &default
   adapter: postgresql

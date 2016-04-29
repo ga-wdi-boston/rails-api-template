@@ -12,6 +12,7 @@ class SessionsController < ProtectedController
   def show
     render json: Session.find(params[:id])
   end
+  # Require Authentication
 
   def create
     @session = current_user.sessions.build(session_params)
@@ -22,6 +23,32 @@ class SessionsController < ProtectedController
       render json: @session.errors, status: :unprocessable_entity
     end
   end
+
+  # def update
+  #    @meal = Meal.find(params[:id])
+  #
+  #    if @meal.update(meal_params)
+  #      render json: @meal, status: :ok
+  #    else
+  #      render json: @meal.errors, status: :unprocessable_entity
+  #    end
+  #  end
+
+  def update
+    @session = Session.find(params[:id])
+    if @session.update(session_params)
+      render json: @session, status: :ok
+    else
+      render json: @session.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @session = Session.find(params[:id])
+    @session.delete
+  end
+
+  # priavte
 
   def set_session
     @session = current_user.sessions.find(params[:id])

@@ -1,9 +1,18 @@
 curl --include --request GET http://localhost:3000/sessions \
   --header "Content-Type: application/json"
 
+curl --include --request POST http://localhost:3000/sign-in \
+  --header "Content-Type: application/json" \
+  --data '{
+    "credentials": {
+      "email": "an@example.email",
+      "password": "an example password"
+    }
+  }'
+
 
   curl --include --request POST http://localhost:3000/sessions \
-    --header "Authorization: Token token=BAhJIiUzYTdiN2E2NGE2OGQxYTczOTQ0Y2I1MzEyOTUzZDAwMgY6BkVG--42fbce8b0da3463d8d42864bd6cd8af63158d6ec" \
+    --header "Authorization: Token token=BAhJIiU0OTg0MGUwZmYzMWFlMjliZDg2MmMzODUwY2YwOWQ1MAY6BkVG--42bdcb97a11055d25dad160aa877046622afeb32" \
     --header "Content-Type: application/json" \
     --data '{
       "session": {
@@ -13,3 +22,13 @@ curl --include --request GET http://localhost:3000/sessions \
         "surfboard_id": "1"
       }
     }'
+
+curl --include --request PATCH http://localhost:3000/sessions/1 \
+  --header "Authorization: Token token=BAhJIiU1NDUwYzNjMGFmYTUyMDE0Yzc0ZmFlOWM1YzEwYmE4NwY6BkVG--70db4e1b5620646d0b597694423086ba9f021a2a" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "session":{
+      "spot": "2"
+    },
+    "id": "1"
+  }'

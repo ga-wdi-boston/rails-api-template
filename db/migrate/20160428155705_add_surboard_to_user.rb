@@ -1,6 +1,5 @@
-class AddSurboardToUser < ActiveRecord::Migration
+class AddUserToSurboard < ActiveRecord::Migration
   def change
-    ALTER TABLE surfboards
-    add_reference :users, :surfboard, index: true, foreign_key: true
+    add_reference :users, :surfboard, index: true, foreign_key: :user_id
   end
 end

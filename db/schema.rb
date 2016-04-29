@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428155958) do
+ActiveRecord::Schema.define(version: 20160429172833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,10 @@ ActiveRecord::Schema.define(version: 20160428155958) do
     t.text     "fin_setup"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "surfboards", ["user_id"], name: "index_surfboards_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
@@ -47,16 +50,14 @@ ActiveRecord::Schema.define(version: 20160428155958) do
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "surfboard_id"
     t.integer  "session_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["session_id"], name: "index_users_on_session_id", using: :btree
-  add_index "users", ["surfboard_id"], name: "index_users_on_surfboard_id", using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
   add_foreign_key "examples", "users"
+  add_foreign_key "surfboards", "users"
   add_foreign_key "users", "sessions"
-  add_foreign_key "users", "surfboards"
 end

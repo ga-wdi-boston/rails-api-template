@@ -2,35 +2,39 @@
 class SurfboardsController < ProtectedController
   skip_before_action :authenticate, only: [:show, :index]
   before_action :authenticate, only: [:create]
-  # show
+  # Unauthenticated
+
+  def index
+    @surfboads = Surfboard.all
+
+    render json: @surfboards
+  end
+
   def show
-    render json: @surfboard
+    render json: Surfboard.find(params[:id])
   end
 
+  # Require Authentication
   def create
-    @surfboard = Surfboard.create(surfboard_params)
-    render json: @surfboard
-  end
+    binding.pry
+    @surfboard = current_user.surfboards.build(surfboard_params)
 
-  private
 
-  def authenticate
-    authenticate_or_request_with_http_token do |token|
-      token == TOKEN
+    if @surfboard.save
+      render json: @surfboard, status: :created, location: @surfboard
+    else
+      render json: @surfboard.errors, status: :unprocessable_entity
     end
   end
 
-  # def authenticate
-  #   token = params[:token]
-  #   @current_user = User.find_by token: token
-  #   head :unauthorized unless current_user
-  # end
-
   def set_surfboard
-    @surfboard = Surfboard.find(params[:id])
+    @surfboard = current_user.surfboards.find(params[:id])
   end
 
   def surfboard_params
     params.require(:surfboard).permit(:height, :shape, :fin_setup)
+    # params.require(:surfboard)
   end
+
+  # private :set_surfboard, :surfboard_params
 end

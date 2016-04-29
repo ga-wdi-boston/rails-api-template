@@ -1,5 +1,6 @@
 #
 class User < ActiveRecord::Base
   include Authentication
-  has_many :surfboards, inverse_of: :users
+  has_many :surfboards
+  # , foreign_key: :surfboard_id
 end

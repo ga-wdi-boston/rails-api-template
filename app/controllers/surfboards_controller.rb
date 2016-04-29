@@ -5,7 +5,7 @@ class SurfboardsController < ProtectedController
   # Unauthenticated
 
   def index
-    @surfboads = Surfboard.all
+    @surfboards = Surfboard.all
 
     render json: @surfboards
   end
@@ -16,9 +16,8 @@ class SurfboardsController < ProtectedController
 
   # Require Authentication
   def create
-    binding.pry
+    # binding.pry
     @surfboard = current_user.surfboards.build(surfboard_params)
-
 
     if @surfboard.save
       render json: @surfboard, status: :created, location: @surfboard
@@ -36,5 +35,5 @@ class SurfboardsController < ProtectedController
     # params.require(:surfboard)
   end
 
-  # private :set_surfboard, :surfboard_params
+  private :set_surfboard, :surfboard_params
 end

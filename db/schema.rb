@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429172833) do
+ActiveRecord::Schema.define(version: 20160429182705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +29,14 @@ ActiveRecord::Schema.define(version: 20160429172833) do
     t.text     "spot"
     t.date     "day"
     t.text     "conditions"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+    t.integer  "surfboard_id"
   end
+
+  add_index "sessions", ["surfboard_id"], name: "index_sessions_on_surfboard_id", using: :btree
+  add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree
 
   create_table "surfboards", force: :cascade do |t|
     t.integer  "height"
@@ -40,8 +45,10 @@ ActiveRecord::Schema.define(version: 20160429172833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.integer  "session_id"
   end
 
+  add_index "surfboards", ["session_id"], name: "index_surfboards_on_session_id", using: :btree
   add_index "surfboards", ["user_id"], name: "index_surfboards_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -50,14 +57,14 @@ ActiveRecord::Schema.define(version: 20160429172833) do
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "session_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["session_id"], name: "index_users_on_session_id", using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
   add_foreign_key "examples", "users"
+  add_foreign_key "sessions", "surfboards"
+  add_foreign_key "sessions", "users"
+  add_foreign_key "surfboards", "sessions"
   add_foreign_key "surfboards", "users"
-  add_foreign_key "users", "sessions"
 end

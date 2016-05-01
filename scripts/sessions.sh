@@ -12,7 +12,7 @@ curl --include --request POST http://localhost:3000/sign-in \
 
 
   curl --include --request POST http://localhost:3000/sessions \
-    --header "Authorization: Token token=BAhJIiU0OTg0MGUwZmYzMWFlMjliZDg2MmMzODUwY2YwOWQ1MAY6BkVG--42bdcb97a11055d25dad160aa877046622afeb32" \
+    --header "Authorization: Token token=BAhJIiU4NWYyZTZiMDNhOTAxOGVjOGQ0NTNkNWMzZmJlODJiNwY6BkVG--9cf2fd4c0ab75730718cf95374ffe86b7ed7ed44" \
     --header "Content-Type: application/json" \
     --data '{
       "session": {
@@ -32,3 +32,6 @@ curl --include --request PATCH http://localhost:3000/sessions/1 \
     },
     "id": "1"
   }'
+
+  curl --include --request DELETE http://localhost:3000/sessions/1 \
+    --header "Authorization: Token token=BAhJIiU1NDUwYzNjMGFmYTUyMDE0Yzc0ZmFlOWM1YzEwYmE4NwY6BkVG--70db4e1b5620646d0b597694423086ba9f021a2a"

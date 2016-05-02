@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: [:show, :update, :destroy]
+  before_action :set_story, only: [:create, :show, :update, :destroy]
 
   # GET /stories
   # GET /stories.json
@@ -54,6 +54,6 @@ class StoriesController < ApplicationController
     end
     # added this line
     def story_params
-      params[:story]
+      params[:stories]
     end
 end

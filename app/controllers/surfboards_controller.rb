@@ -1,15 +1,22 @@
 # Surfboard controller
 class SurfboardsController < ProtectedController
-  skip_before_action :authenticate, only: [:show, :index]
-  before_action :authenticate, only: [:create]
+  # skip_before_action :authenticate, only: [:index]
+  before_action :authenticate, only: [:create, :show, :index]
   # Unauthenticated
 
   def index
-    @surfboards = Surfboard.all
+    # render json: Surfboard.all
+    @surfboards = current_user.surfboards
 
     render json: @surfboards
   end
 
+  # def show
+  #   @surfboard = current_user.surfboards.find(params[:user_id])
+  #
+  #   render json: @surfboard
+  # end
+  # WORKING VERSION BELOW
   def show
     render json: Surfboard.find(params[:id])
   end

@@ -52,7 +52,7 @@ class StoriesController < ApplicationController
     def set_story
       @story = Story.find(params[:id])
     end
-
+    # added this line
     def story_params
       params[:story]
     end

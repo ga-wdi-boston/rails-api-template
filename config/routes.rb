@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :stories
+  resources :stories, except: [:new, :edit]
   resources :examples, except: [:new, :edit]
 
   # get '/stories' => 'stories#index'
-  post '/stories' => 'stories#create'
+  # post '/stories' => 'stories#create'
   # get '/stories/:id' => 'stories#show'
   # patch '/stories/:id' => 'stories#update'
   # delete '/stories/:id' => 'stories#destroy'

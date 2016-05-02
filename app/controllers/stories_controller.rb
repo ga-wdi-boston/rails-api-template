@@ -1,5 +1,5 @@
-class StoriesController < ApplicationController
-  before_action :set_story, only: [:create, :show, :update, :destroy]
+class StoriesController < ProtectedController
+  before_action :set_story, only: [:show, :update, :destroy]
 
   # GET /stories
   # GET /stories.json
@@ -12,13 +12,15 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def show
+    render json: Story.find(params[:id])
+
     render json: @story
   end
 
   # POST /stories
   # POST /stories.json
   def create
-    @story = Story.new(story_params)
+    @story = current_user.stories.build(story_params)
 
     if @story.save
       render json: @story, status: :created, location: @story
@@ -52,8 +54,8 @@ class StoriesController < ApplicationController
     def set_story
       @story = Story.find(params[:id])
     end
-    # added this line
+
     def story_params
-      params[:stories]
+      params.require(:stories).permit(:title, :body)
     end
 end

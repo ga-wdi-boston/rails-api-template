@@ -4,7 +4,7 @@ class StoriesController < ProtectedController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.all
+    @stories = current_user.stories
 
     render json: @stories
   end
@@ -56,6 +56,6 @@ class StoriesController < ProtectedController
     end
 
     def story_params
-      params.require(:stories).permit(:title, :body)
+      params.require(:story).permit(:title, :body)
     end
 end

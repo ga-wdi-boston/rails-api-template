@@ -1,10 +1,10 @@
 # sessions controller
 class SessionsController < ProtectedController
-  skip_before_action :authenticate, only: [:show, :index]
-  before_action :authenticate, only: [:create, :update]
+  skip_before_action :authenticate, only: [:show]
+  before_action :authenticate, only: [:create, :update, :index]
 
   def index
-    @sessions = Session.all
+    @sessions = current_user.sessions
 
     render json: @sessions
   end

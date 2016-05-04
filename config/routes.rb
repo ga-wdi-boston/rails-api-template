@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :examples, except: [:new, :edit]
 
   # get '/stories' => 'stories#index'
+  get '/stories/index' => 'stories#showindex'
   # post '/stories' => 'stories#create'
   # get '/stories/:id' => 'stories#show'
   # patch '/stories/:id' => 'stories#update'

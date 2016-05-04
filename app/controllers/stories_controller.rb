@@ -9,6 +9,12 @@ class StoriesController < ProtectedController
     render json: @stories
   end
 
+  def showindex
+    @stories = Stories.all
+
+    render json: @stories
+  end
+
   # GET /stories/1
   # GET /stories/1.json
   def show

@@ -1,0 +1,1 @@
+\copy stories(title,body) FROM './data/stories.csv' WITH (HEADER true, FORMAT csv)

@@ -1,4 +1,4 @@
-A Tic-tac-toe data store API
+A StoryLibrary API
 An API to store short stories posted by the user. It allows users to edit, delete and post their short stories to a backend database.
 
 The API does not currently allow users to view or rate other user's stories.

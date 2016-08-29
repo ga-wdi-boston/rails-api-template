@@ -41,9 +41,12 @@ module RailsApiTemplate
     # Cross-Origin Resource Sharing
     # development client port
     cors_port = 'GA'.each_byte.reduce('') { |a, e| a + format('%d', e) }.to_i
-    config.middleware.use Rack::Cors do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins ENV['CLIENT_ORIGIN'] || "http://localhost:#{cors_port}"
+        origins do |origin, _env|
+          origin == ENV['CLIENT_ORIGIN'] ||
+            origin == "http://localhost:#{cors_port}"
+        end
         resource '*',
                  headers: :any,
                  methods: [:options, :get,

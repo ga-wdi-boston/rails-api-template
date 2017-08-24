@@ -1,4 +1,5 @@
-<% project_name = 'rails-api-template' %>
+# Setting the variable
+<% project_name = 'full-stack-project-api' %>
 
 default: &default
   adapter: postgresql
@@ -7,6 +8,7 @@ default: &default
 
 development:
   <<: *default
+  # Using the variable
   database: <%= project_name %>_development
 
 test:

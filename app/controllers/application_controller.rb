@@ -20,8 +20,14 @@ class ApplicationController < ActionController::API
   # Use Token Authentication
   include ActionController::HttpAuthentication::Token::ControllerMethods
   def authenticate
-    @current_user =
-      authenticate_or_request_with_http_token(&AUTH_PROC)
+    @current_user = authenticate_or_request_with_http_token do |signed_token, _opts|
+          token = begin
+            Rails.application.message_verifier(:signed_token).verify(signed_token)
+          rescue ActiveSupport::MessageVerifier::InvalidSignature
+            false
+          end
+          User.find_by token: token
+        end
   end
 
   # call from actions to get authenticated user (or nil)
